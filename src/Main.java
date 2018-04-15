@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Main extends JPanel {
 
+    public static final int TOLERANCE = 1000000;
+
     public void paint(Graphics g) {
         BufferedImage img = readImage();
         ArrayList<Point> edgePoints = findEdgePoints(img);
@@ -15,7 +17,7 @@ public class Main extends JPanel {
         g.drawImage(img, 0, 0, this);
         for(int i = 0 ; i < edgePoints.size(); i++ ) {
             Point p = edgePoints.get(i);
-           // g.drawOval(p.x, p.y, 5, 5);
+            g.drawOval(p.x, p.y, 5, 5);
         }
         g.setColor(Color.red);
         // g.fillOval(center.x, center.y, 10,10);
@@ -27,7 +29,7 @@ public class Main extends JPanel {
     private BufferedImage readImage() {
         BufferedImage img = null;
         try {
-            img = ImageIO.read(new File("src/test4.jpg"));
+            img = ImageIO.read(new File("src/test3.jpg"));
         } catch (IOException ioe) {
             System.out.println(ioe);
             System.exit(-12);
@@ -52,7 +54,7 @@ public class Main extends JPanel {
             for (int y = 0; y < height - 1; y++) {
 
                 int compare = Math.abs(pixels[x][y] - pixels[x][y + 1]);
-                if (compare >= 1000000) {
+                if (compare >= TOLERANCE) {
                     edgePoints.add(new Point(x, y));
                 }
             }
